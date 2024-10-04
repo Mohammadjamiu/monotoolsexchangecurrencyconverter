@@ -6,6 +6,7 @@ const cors = require("cors");
 const axios = require("axios");
 const PORT = process.env.PORT || 8090;
 const app = express();
+const { Telegraf } = require("telegraf");
 
 const apiURL = `https://v6.exchangerate-api.com/v6`;
 const apiKey = process.env.API_KEY;
@@ -76,6 +77,33 @@ app.post("/api/convert", async (req, res) => {
     });
   }
 });
+
+//! Configure Telegram Web app
+const bot = new Telegraf(process.env.BOT_TOKEN);
+const websiteLink = `https://monotoolsexchangecurrencyconverter.vercel.app`;
+
+bot.start((ctx) =>
+  ctx.reply("Welcome to the bot!!", {
+    reply_markup: {
+      keyboard: [
+        [
+          {
+            text: "web app",
+            web_app: { url: websiteLink },
+          },
+        ],
+      ],
+    },
+  })
+);
+bot
+  .launch()
+  .then(() => {
+    console.log("Bot is running...");
+  })
+  .catch((err) => {
+    console.error("Failed to launch bot:", err);
+  });
 
 //! Start server
 app.listen(PORT, () => {

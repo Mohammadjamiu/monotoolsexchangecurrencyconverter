@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import ConversionCard from "./components/ConversionCard";
 
 const App = () => {
+  // Configuring Telegram Webapp
+  const telegram = window.Telegram.WebApp;
+  useEffect(() => {
+    telegram.ready();
+  }, []);
   return (
     <div className="  max-w-[480px] m-auto ">
       {/* <Navbar /> */}
