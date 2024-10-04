@@ -19,7 +19,7 @@ const apiReqLimiter = rateLimit({
 app.use(express.json()); // Parse JSON data from req.body
 // CORS fix
 
-const prodOrigins = [process.env.FRONTEND_URL || ""];
+const prodOrigins = [process.env.FRONTEND_URL];
 const devOrigin = ["http://localhost:5174"];
 const allowedOrigins =
   process.env.NODE_ENV === "production" ? prodOrigins : devOrigin;
