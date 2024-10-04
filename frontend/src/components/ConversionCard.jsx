@@ -55,11 +55,14 @@ const ConversionCard = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:8090/api/convert", {
-        fromCurrency: currencyFrom,
-        toCurrency: currencyTo,
-        amount: amount,
-      });
+      const response = await axios.post(
+        "https://monotoolsexchangecurrencyconverter.onrender.com/api/convert",
+        {
+          fromCurrency: currencyFrom,
+          toCurrency: currencyTo,
+          amount: amount,
+        }
+      );
       const data = response.data;
       console.log(data);
 
@@ -68,7 +71,7 @@ const ConversionCard = () => {
       setConversionRate(data.conversionRate);
       setExchangeRateDate(data.rateUpdateTime);
     } catch (error) {
-      console.error("Error fetching conversion data:", error);
+      console.error("Error fetching conversion data:", error.message);
       //   alert("Failed to fetch conversion data");
       handleFetchError();
     }
